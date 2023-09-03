@@ -19,14 +19,22 @@ public class RegexTask1 {
 
         String text1 = "a 78 3 z 11 7 b z d s 15 22 m n z 22 34 8 l 2 z 5";
 
-        Pattern pattern1 = Pattern.compile("z (\\d+)");
+        Pattern pattern1 = Pattern.compile("z((\\s\\d+)+)");
         Matcher matcher1 = pattern1.matcher(text1);
         int sum1 = 0;
 
         while (matcher1.find()) {
-            int number = Integer.parseInt(matcher1.group(1));
-            sum1 += number;
+            String group = matcher1.group(1);
+            Pattern numberPattern = Pattern.compile("\\d+");
+            Matcher numberMatcher = numberPattern.matcher(group);
+
+            while (numberMatcher.find()) {
+                String numberStr = numberMatcher.group();
+                int number = Integer.parseInt(numberStr);
+                sum1 += number;
+            }
         }
+
 
         System.out.println("Sum of numbers after 'z' occurrences: " + sum1);
 
